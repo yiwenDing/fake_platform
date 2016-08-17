@@ -1,0 +1,99 @@
+<html>
+{% extends "manage_web/index.html" %}
+<body>
+{% block content %}
+    <div id="page-wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">卡片假数据控制面板</h1>
+                </div>
+                <div class="col-lg-12">
+                    {% if cards %}
+                        <table id="mytable"  border="1">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>API_Version</th>
+                                <th>CELL_ITEM_VIEW</th>
+                                <th>DESCRIPTION</th>
+                                <th>HOT_TIME</th>
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                             {% for items in cards %}
+                                 <tbody>
+
+                             <tr>
+                                <td>{{ items.id }}</td>
+                                <td>{{ items.api_version }}</td>
+                                <td>{{items.cell_item }}</td>
+                                <td>{{ items.description}}</td>
+                                <td>{{ items.behot_time}}</td>
+                                <td>{{ items.status }}</td>
+                                 <td><input value="{{ items.id }}" name="data_test" type="checkbox" /></td>
+
+                             </tr>
+                                 </tbody>
+
+                            {% endfor %}
+
+                </table>
+                {% endif %}
+                <div class="col-lg-12">
+                    <a id="btn0"></a>
+                    <input id="pageSize" type="text" size="1" maxlength="2" value="getDefaultValue()"/><a> 条 </a> <a href="#" id="pageSizeSet">设置</a>
+                    &nbsp;
+                    <a id="sjzl"></a>&nbsp;
+                    <a  href="#" id="btn1">首页</a>&nbsp;
+                    <a  href="#" id="btn2">上一页</a>&nbsp;
+                    <a  href="#" id="btn3">下一页</a>&nbsp;
+                    <a  href="#" id="btn4">尾页</a>&nbsp;
+                    <a>转到 </a>
+                    <input id="changePage" type="text" size="1" maxlength="4"/>
+                    <a>页 </a>&nbsp;
+                    <a  href="#" id="btn5">跳转</a>&nbsp;
+                    <button name="btn" onclick="fun1()" >添加</button>
+                </div>
+                    <script>
+                            function fun1() {
+                                obj= document.getElementsByName("data_test");
+                                check_val=[];
+                                for(k in obj){
+                                    if(obj[k].checked){
+                                        check_val.push(obj[k].value);
+                                        //alert(obj);
+                                    }
+
+                                };
+                            alert(check_val);
+
+                //            alert(check_val.serializeArray());
+                                $.ajax({
+                                   // traditional:true,
+                                    url:"get_data/",
+                                    data: {
+                                        id:check_val+" ",
+                                    },
+                                    dataType:"json",
+                                    type:"GET",
+                                    success:function(result) {
+                                }
+                                })
+                            }
+                        </script>
+
+                </div>
+
+
+            <!-- ... Your content goes here ... -->
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+</body>
+</html>
