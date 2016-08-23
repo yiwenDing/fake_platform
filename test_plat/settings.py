@@ -86,9 +86,9 @@ DATABASES = {
         'HOST':'localhost',
         'PORT':'3306',
     },
-    'search':{
+    'test_fake':{
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fake_db',
+        'NAME': 'test_fake',
         'USER':'root',
        'PASSWORD':'123321',
         'HOST': 'localhost',

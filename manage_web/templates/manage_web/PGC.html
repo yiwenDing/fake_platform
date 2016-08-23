@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-lg-12">
                     {% if pgcs %}
-                        <table id="mytable"  border="1">
+                        <table id="mytable"  border="1" style="table-layout: fixed;width: 1000px">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -29,8 +29,8 @@
                              <tr>
                                 <td>{{ items.id }}</td>
                                 <td>{{ items.api_version }}</td>
-                                <td>{{items.cell_item }}</td>
-                                <td>{{ items.description}}</td>
+                                <td style="white-space: nowrap;text-overflow: ellipsis; overflow: hidden">{{items.cell_item }}</td>
+                                <td style="white-space: nowrap;text-overflow: ellipsis; overflow: hidden">{{ items.description}}</td>
                                 <td>{{ items.behot_time}}</td>
                                 <td>{{ items.status }}</td>
                                  <td><input value="{{ items.id }}" name="data_test" type="checkbox" /></td>
@@ -73,7 +73,7 @@
                 //            alert(check_val.serializeArray());
                                 $.ajax({
                                    // traditional:true,
-                                    url:"get_data/",
+                                    url:"/manage_web/get_data_id/",
                                     data: {
                                         id:check_val+" ",
                                     },

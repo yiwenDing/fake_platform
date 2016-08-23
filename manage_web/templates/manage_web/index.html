@@ -29,9 +29,6 @@
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script language="JavaScript" type="text/javascript" src="{% static "manage_web/js/jquery.js" %}" ></script>
 
@@ -87,16 +84,22 @@
                 </ul>
             </li>
             <li class="dropdown">
+            {% if request_user.is_authenticated %}
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> 匿名 <b class="caret"></b>
+                    <i class="fa fa-user fa-fw"></i> {{ request_user }} <b class="caret"></b>
                 </a>
+            {% else %}
+                <a class="dropdown-toggle" data-toggle="dropdown" href="/manage_web/login/">
+                    <i class="fa fa-user fa-fw"></i> 登录 <b class="caret"></b>
+                </a>
+                {% endif %}
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="/manage_web/login/"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
             </li>
@@ -109,16 +112,16 @@
                 <ul class="nav" id="side-menu">
 
                     <li>
-                        <a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i>业务面板</a>
+                        <a href="/manage_web/" class="active"><i class="fa fa-dashboard fa-fw"></i>业务面板</a>
                     </li>
 
                     <li>
-                        <a href="/ad_action/"><i class="fa fa-sitemap fa-fw"></i> 广告<span></span></a>
+                        <a href="/manage_web/ad_action/"><i class="fa fa-sitemap fa-fw"></i> 广告<span></span></a>
                     </li>
 
                     <li>
-                        <a href="/group/"><i class="fa fa-sitemap fa-fw"></i> 文章<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
+                        <a href="/manage_web/group/"><i class="fa fa-sitemap fa-fw"></i> 文章<span ></span></a>
+                        <!--<ul class="nav nav-second-level">
                             <li>
                                 <a href="#">大图文章</a>
                             </li>
@@ -126,25 +129,26 @@
                                 <a href="#">多图文章<span></span></a>
                             </li>
                         </ul>
+                        -->
                     </li>
 
                     <li>
-                        <a href="subject/"><i class="fa fa-sitemap fa-fw"></i> 专题<span ></span></a>
+                        <a href="/manage_web/subject/"><i class="fa fa-sitemap fa-fw"></i> 专题<span ></span></a>
                     </li>
 
                     <li>
-                        <a href="pictures/"><i class="fa fa-sitemap fa-fw"></i> 图集<span></span></a>
+                        <a href="/manage_web/pictures/"><i class="fa fa-sitemap fa-fw"></i> 图集<span></span></a>
                     </li>
 
                     <li>
-                        <a href="PGC/"><i class="fa fa-sitemap fa-fw"></i> PGC<span ></span></a>
+                        <a href="/manage_web/PGC/"><i class="fa fa-sitemap fa-fw"></i> PGC<span ></span></a>
                     </li>
 
                     <li>
-                        <a href="UGC/"><i class="fa fa-sitemap fa-fw"></i> UGC<span></span></a>
+                        <a href="/manage_web/UGC/"><i class="fa fa-sitemap fa-fw"></i> UGC<span></span></a>
                     </li>
                     <li>
-                        <a href="test_channel/"><i class="fa fa-sitemap fa-fw"></i> 测试频道<span></span></a>
+                        <a href="/manage_web/test_channel/"><i class="fa fa-sitemap fa-fw"></i> 测试频道<span></span></a>
                     </li>
 
 
@@ -168,7 +172,7 @@
                 </div>
                 <div class="col-lg-12">
                     {% if fake_item_objects %}
-                        <table id="mytable"  border="1">
+                        <table id="mytable"  border="1" style="table-layout: fixed;width: 1000px">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -187,7 +191,7 @@
                                 <td>{{ items.id }}</td>
                                 <td>{{ items.api_version }}</td>
                                 <td>{{items.cell_item }}</td>
-                                <td>{{ items.description}}</td>
+                                <td style="white-space: nowrap;text-overflow: ellipsis; overflow: hidden">{{ items.description}}</td>
                                 <td>{{ items.behot_time}}</td>
                                 <td>{{ items.status }}</td>
                                  <td><input value="{{ items.id }}" name="data_test" type="checkbox" /></td>
@@ -225,12 +229,12 @@
                                     }
 
                                 };
-                           // alert(check_val);
+                           alert(check_val);
 
                 //            alert(check_val.serializeArray());
                                 $.ajax({
                                    // traditional:true,
-                                    url:"get_data/",
+                                    url:"get_data_id/",
                                     data: {
                                         id:check_val+" ",
                                     },

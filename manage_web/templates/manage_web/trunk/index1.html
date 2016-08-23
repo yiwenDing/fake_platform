@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据展示</title>
+</head>
+<body>
+ {% if fake_item_objects %}
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>API_Version</th>
+            <th>CELL_ITEM_VIEW</th>
+            <th>DESCRIPTION</th>
+            <th>HOT_TIME</th>
+            <th>STATUS</th>
+
+         {% for items in fake_item_objects %}
+        <tr>
+            <td>{{ items.id }}</td>
+            <td>{{ items.api_version }}</td>
+            <td>{{items.cell_item }}</td>
+            <td>{{ items.description}}</td>
+            <td>{{ items.behot_time}}</td>
+            <td>{{ items.status }}</td>
+
+        </tr>
+        {% endfor %}
+       {% endif %}
+    </table>
+
+
+
+
+</body>
+</html>

@@ -7,38 +7,54 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">测试频道已经添加的假数据控制面板</h1>
+                    <h1 class="page-header">测试频道控制面板</h1>
                 </div>
                 <div class="col-lg-12">
-                    {% if fake_item_objects %}
-                        <table id="mytable"  border="1">
+                    {% if test_items and item_list_ids and apis and cell_items and descriptions and behot_times and status  %}
+                        <table id="mytable"  border="1" style="table-layout: fixed;width: 1000px">
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <!--
                                 <th>API_Version</th>
-                                <th>CELL_ITEM_VIEW</th>
+                                <th>CELL_ITEM</th>
+                                <th>CELL_data</th>
                                 <th>DESCRIPTION</th>
                                 <th>HOT_TIME</th>
-                                <th>STATUS</th>
+                                <th>STATUS</th>-->
                                 <th>ACTION</th>
+
                             </tr>
                         </thead>
-                             {% for items in fake_item_objects %}
+                        {% for id in item_list_ids %}
+
                                  <tbody>
 
                              <tr>
-                                <td>{{ items.id }}</td>
-                                <td>{{ items.api_version }}</td>
-                                <td>{{items.cell_item }}</td>
-                                <td>{{ items.description}}</td>
-                                <td>{{ items.behot_time}}</td>
-                                <td>{{ items.status }}</td>
-                                 <td><input value="{{ items.id }}" name="data_test" type="checkbox" /></td>
 
+                                <td>{{ id }}</td>
+
+
+                                <!--
+                                <td style="white-space: nowrap;text-overflow: ellipsis; overflow: hidden">{{ id }}</td>
+
+                                <td>{{ items.id }}</td>
+
+                                <td>{{ items.api_verison }}</td>
+                                <td>{{ items.cell_item }}</td>
+                                <td>{{ items.description }}</td>
+                                <td>{{ items.behot_time }}</td>
+                                <td>{{ items.status }}</td>-->
+
+                                 <td><input value="{{ id }}" name="data_test" type="checkbox" /></td>
                              </tr>
+
+
                                  </tbody>
 
-                            {% endfor %}
+                        {% endfor %}
+
+
 
                 </table>
                 {% endif %}
@@ -55,8 +71,11 @@
                     <input id="changePage" type="text" size="1" maxlength="4"/>
                     <a>页 </a>&nbsp;
                     <a  href="#" id="btn5">跳转</a>&nbsp;
-                    <button name="btn" onclick="fun1()" >添加</button>
-                </div>
+
+                </div><br/>
+                <br/>
+                <button name="btn" onclick="fun1()" >删除选中的测试数据</button>
+
                     <script>
                             function fun1() {
                                 obj= document.getElementsByName("data_test");
@@ -68,19 +87,22 @@
                                     }
 
                                 };
-                           // alert(check_val);
+                           alert(check_val);
 
                 //            alert(check_val.serializeArray());
                                 $.ajax({
                                    // traditional:true,
-                                    url:"get_data/",
+                                    url:"/manage_web/del_data/",
                                     data: {
                                         id:check_val+" ",
                                     },
                                     dataType:"json",
                                     type:"GET",
-                                    success:function(result) {
-                                }
+                                    success:function(data) {
+
+                                        location.reload();
+                                     }
+
                                 })
                             }
                         </script>

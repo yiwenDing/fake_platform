@@ -7,11 +7,12 @@ urlpatterns=[
     url(r'^ad_action/$',ad_action),
     url(r'^group/$',group),
     url(r'^subject/$',subject),
-    url(r'^picture/$',pictures),
+    url(r'^pictures/$',pictures),
     url(r'^PGC/$',PGC),
     url(r'^test_channel/$',test_channel),
     url(r'^UGC/$',UGC),
     url(r'^card/',card),
-    url(r'^get_data/$',receive_data),
+    url(r'^get_data_id/$',get_data_id),
+    url(r'^del_data/$', del_data_from_test),
 
 ]
